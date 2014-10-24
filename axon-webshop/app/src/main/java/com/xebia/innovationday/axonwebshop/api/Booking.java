@@ -5,21 +5,21 @@ import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
-public class Reservation extends AbstractAnnotatedAggregateRoot<Reservation> {
+public class Booking extends AbstractAnnotatedAggregateRoot<Booking> {
     @AggregateIdentifier
     String id;
 
-    Reservation() {
+    Booking() {
     }
 
     @CommandHandler
-    public Reservation(ReserveSeatCommand command) {
-        apply(new SeatReservedEvent(command.getReservationId()));
+    public Booking(BookFlightCommand command) {
+        apply(new BookingRequestedEvent(command.getBookingId(), command.getFlightId()));
     }
 
     @EventHandler
-    public void on(SeatReservedEvent event) {
-        id = event.getReservationId();
+    public void on(BookingRequestedEvent event) {
+        id = event.getBookingId();
     }
 
 

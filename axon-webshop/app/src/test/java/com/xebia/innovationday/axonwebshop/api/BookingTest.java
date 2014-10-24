@@ -6,29 +6,30 @@ import org.axonframework.test.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ReservationTest {
+public class BookingTest {
 
-    private static final String RESERVATION_ID = "randomId";
+    private static final String BOOKING_ID = "randomBookingId";
+    private static final String FLIGHT_ID = "someFlightId";
     private FixtureConfiguration fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = Fixtures.newGivenWhenThenFixture(Order.class);
+        fixture = Fixtures.newGivenWhenThenFixture(Booking.class);
     }
 
     @Test
-    public void testReserveSeat() {
+    public void testCreateOrder() {
         fixture.given()
-                .when(new ReserveSeatCommand(RESERVATION_ID))
-                .expectEvents(new SeatReservedEvent(RESERVATION_ID));
+            .when(new BookFlightCommand(BOOKING_ID, FLIGHT_ID))
+            .expectEvents(new BookingRequestedEvent(BOOKING_ID, FLIGHT_ID));
 
     }
 
     @Test
-    public void testCreateReservationWithNullId() {
+    public void testCreateOrderWithNullId() {
 
         fixture.given()
-                .when(new ReserveSeatCommand(null))
+            .when(new BookFlightCommand(null, null))
                 .expectException(AggregateIdentifierNotInitializedException.class);
     }
 
