@@ -1,5 +1,6 @@
 package com.xebia.innovationday.axonwebshop.api;
 
+import org.axonframework.domain.AggregateIdentifierNotInitializedException;
 import org.axonframework.test.FixtureConfiguration;
 import org.axonframework.test.Fixtures;
 import org.junit.Before;
@@ -18,9 +19,18 @@ public class OrderTest {
     @Test
     public void testCreateOrder() {
         fixture.given()
-            .when(new CreateOrderCommand(ORDER_ID))
-            .expectEvents(new OrderCreatedEvent(ORDER_ID));
+                .when(new CreateOrderCommand(ORDER_ID))
+                .expectEvents(new OrderCreatedEvent(ORDER_ID));
 
     }
+
+    @Test
+    public void testCreateOrderWithNullId() {
+
+        fixture.given()
+                .when(new CreateOrderCommand(null))
+                .expectException(AggregateIdentifierNotInitializedException.class);
+    }
+
 
 }
