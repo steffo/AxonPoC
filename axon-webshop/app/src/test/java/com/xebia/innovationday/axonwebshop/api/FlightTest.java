@@ -8,7 +8,8 @@ import org.junit.Test;
 
 public class FlightTest {
 
-    private static final String FLIGHT_ID = "randomId";
+    private static final String FLIGHT_ID = "randomFlightId";
+    private static final String BOOKING_ID = "randomBookingId";
     private FixtureConfiguration fixture;
 
     @Before
@@ -33,4 +34,11 @@ public class FlightTest {
     }
 
 
+    @Test
+    public void testReserveSeat() {
+        fixture.given(new FlightScheduledEvent(FLIGHT_ID))
+            .when(new ReserveSeatCommand(FLIGHT_ID, BOOKING_ID))
+        .expectEvents(new SeatReservedEvent(FLIGHT_ID, BOOKING_ID));
+        
+    }
 }

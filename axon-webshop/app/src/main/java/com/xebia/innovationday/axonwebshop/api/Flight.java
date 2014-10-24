@@ -17,6 +17,11 @@ public class Flight extends AbstractAnnotatedAggregateRoot<Flight> {
         apply(new FlightScheduledEvent(command.getFlightId()));
     }
 
+    @CommandHandler
+    public void reserveSeat(ReserveSeatCommand command) {
+        apply(new SeatReservedEvent(command.getFlightId(), command.getBookingId()));
+    }
+
     @EventHandler
     public void on(FlightScheduledEvent event) {
         id = event.getFlightId();

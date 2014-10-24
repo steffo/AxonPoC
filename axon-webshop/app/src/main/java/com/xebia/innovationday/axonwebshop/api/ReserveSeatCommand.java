@@ -1,16 +1,25 @@
 package com.xebia.innovationday.axonwebshop.api;
 
+import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
+
 public class ReserveSeatCommand {
 
+    @TargetAggregateIdentifier
+    private final String flightId;
 
-    private final String reservationId;
+    private final String bookingId;
 
-    public ReserveSeatCommand(String reservationId) {
-        this.reservationId = reservationId;
+    public ReserveSeatCommand(String flightId, String bookingId) {
+        this.flightId = flightId;
+        this.bookingId = bookingId;
     }
 
-    public String getReservationId() {
-        return reservationId;
+    public String getFlightId() {
+        return flightId;
+    }
+
+    public String getBookingId() {
+        return bookingId;
     }
 
 }

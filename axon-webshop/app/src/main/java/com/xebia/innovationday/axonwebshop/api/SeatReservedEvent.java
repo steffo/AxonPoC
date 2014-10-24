@@ -1,14 +1,16 @@
 package com.xebia.innovationday.axonwebshop.api;
 
 public class SeatReservedEvent {
-    private final String reservationId;
+    private final String flightId;
+    private final String bookingId;
 
-    public SeatReservedEvent(String reservationId) {
-        this.reservationId = reservationId;
+    public SeatReservedEvent(String flightId, String bookingId) {
+        this.flightId = flightId;
+        this.bookingId = bookingId;
     }
 
     public String getReservationId() {
-        return reservationId;
+        return flightId;
     }
 
 }
