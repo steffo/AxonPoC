@@ -17,7 +17,7 @@ public class BookingSagaTest {
     }
 
     @Test
-    public void testOnOrderCreated() {
+    public void testOnBookingRequested() {
         String bookingId = "someBookingId";
         String flightId = "someFlightId";
         fixture.whenAggregate(bookingId).publishes(new BookingRequestedEvent(bookingId, flightId)).
@@ -28,11 +28,11 @@ public class BookingSagaTest {
 
     @Test
     public void testOnSeatReserved() {
-        String orderId = "someOrderId";
-        String reservationId = "someReservationId";
-        // fixture.givenAggregate(orderId).published(new BookingRequestedEvent(orderId)).
-        // whenAggregate(reservationId).publishes(event)
-
+        String bookingId = "someBookingId";
+        String flightId = "someFlightId";
+        fixture.givenAggregate(bookingId).published(new BookingRequestedEvent(bookingId, flightId))
+            .whenAggregate(flightId).publishes(new SeatReservedEvent(flightId, bookingId))
+            .expectDispatchedCommandsEqualTo(new CompleteBookingCommand(bookingId));
         ;
     }
 }

@@ -9,8 +9,11 @@ public class SeatReservedEvent {
         this.bookingId = bookingId;
     }
 
-    public String getReservationId() {
+    public String getFlightId() {
         return flightId;
     }
 
+    public String getBookingId() {
+        return bookingId;
+    }
 }

@@ -16,6 +16,11 @@ public class BookingSaga extends AbstractAnnotatedSaga {
         commandGateway.send(new ReserveSeatCommand(bookingRequestedEvent.getFlightId(), bookingRequestedEvent.getBookingId()));
     }
 
+    @SagaEventHandler(associationProperty = "bookingId")
+    public void handle(SeatReservedEvent event) {
+        commandGateway.send(new CompleteBookingCommand(event.getBookingId()));
+    }
+
     public void setCommandGateway(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
     }
