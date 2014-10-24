@@ -13,13 +13,13 @@ public class Flight extends AbstractAnnotatedAggregateRoot<Flight> {
     }
 
     @CommandHandler
-    public Flight(ReserveSeatCommand command) {
-        apply(new SeatReservedEvent(command.getReservationId()));
+    public Flight(ScheduleFlightCommand command) {
+        apply(new FlightScheduledEvent(command.getFlightId()));
     }
 
     @EventHandler
-    public void on(SeatReservedEvent event) {
-        id = event.getReservationId();
+    public void on(FlightScheduledEvent event) {
+        id = event.getFlightId();
     }
 
 

@@ -13,22 +13,22 @@ public class FlightTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = Fixtures.newGivenWhenThenFixture(Booking.class);
+        fixture = Fixtures.newGivenWhenThenFixture(Flight.class);
     }
 
     @Test
-    public void testReserveSeat() {
+    public void testScheduleFlight() {
         fixture.given()
-                .when(new ReserveSeatCommand(FLIGHT_ID))
-                .expectEvents(new SeatReservedEvent(FLIGHT_ID));
+            .when(new ScheduleFlightCommand(FLIGHT_ID))
+            .expectEvents(new FlightScheduledEvent(FLIGHT_ID));
 
     }
 
     @Test
-    public void testCreateReservationWithNullId() {
+    public void testScheduleFlightWithNullId() {
 
         fixture.given()
-                .when(new ReserveSeatCommand(null))
+            .when(new ScheduleFlightCommand(null))
                 .expectException(AggregateIdentifierNotInitializedException.class);
     }
 
